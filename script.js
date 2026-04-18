@@ -5,18 +5,19 @@
 const pad = (n) => String(n).padStart(2, '0');
 
 const GALLERIES = {
-  // Пока плейсхолдеры — папки «карточки товаров» / «Каталожка» ещё не распределены по вкладкам
-  'studio-photo': Array.from({ length: 8 }, (_, i) => ({
-    type: 'placeholder',
+  'studio-photo': Array.from({ length: 25 }, (_, i) => ({
+    type: 'image',
+    src: `assets/studio-photo/${pad(i + 1)}.jpg`,
     title: `Студийное фото ${i + 1}`,
     wide: i === 0,
   })),
-  'studio-video': Array.from({ length: 6 }, (_, i) => ({
-    type: 'placeholder',
-    title: `Студийное видео ${i + 1}`,
+  'studio-video': Array.from({ length: 2 }, (_, i) => ({
+    type: 'video',
+    src: `assets/studio-video/${pad(i + 1)}.mp4`,
+    poster: `assets/studio-video/${pad(i + 1)}.jpg`,
     badge: 'VIDEO',
+    title: `Студийное видео ${i + 1}`,
   })),
-  // Реальный контент из гугл-диска
   'image-video': Array.from({ length: 6 }, (_, i) => ({
     type: 'video',
     src: `assets/image-video/${pad(i + 1)}.mp4`,
