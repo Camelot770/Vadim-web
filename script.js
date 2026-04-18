@@ -2,7 +2,10 @@
 // Пока используются плейсхолдеры. Заменить на реальные файлы:
 // { type: 'image', src: 'assets/studio-photo/1.jpg', title: 'Название' }
 // { type: 'video', src: 'assets/studio-video/1.mp4', poster: 'assets/studio-video/1.jpg' }
+const pad = (n) => String(n).padStart(2, '0');
+
 const GALLERIES = {
+  // Пока плейсхолдеры — папки «карточки товаров» / «Каталожка» ещё не распределены по вкладкам
   'studio-photo': Array.from({ length: 8 }, (_, i) => ({
     type: 'placeholder',
     title: `Студийное фото ${i + 1}`,
@@ -13,14 +16,19 @@ const GALLERIES = {
     title: `Студийное видео ${i + 1}`,
     badge: 'VIDEO',
   })),
+  // Реальный контент из гугл-диска
   'image-video': Array.from({ length: 6 }, (_, i) => ({
-    type: 'placeholder',
-    title: `Имидж видео ${i + 1}`,
+    type: 'video',
+    src: `assets/image-video/${pad(i + 1)}.mp4`,
+    poster: `assets/image-video/${pad(i + 1)}.jpg`,
     badge: 'VIDEO',
+    title: `Имидж видео ${i + 1}`,
   })),
-  'image-photo': Array.from({ length: 8 }, (_, i) => ({
-    type: 'placeholder',
+  'image-photo': Array.from({ length: 14 }, (_, i) => ({
+    type: 'image',
+    src: `assets/image-photo/${pad(i + 1)}.jpg`,
     title: `Имидж фото ${i + 1}`,
+    wide: i === 0,
   })),
 };
 
