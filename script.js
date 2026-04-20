@@ -137,20 +137,23 @@ function renderGrid(key) {
     grid.dataset.rendered = '1';
     return;
   }
+  // Превью: assets/<cat>/name.ext → assets/<cat>/thumbs/name.jpg
+  const thumbOf = (src) => {
+    if (!src) return '';
+    const i = src.lastIndexOf('/');
+    const dir = src.slice(0, i);
+    const name = src.slice(i + 1);
+    const base = name.replace(/\.[^.]+$/, '');
+    return `${dir}/thumbs/${base}.jpg`;
+  };
   grid.innerHTML = items.map((item) => {
     const wide = item.wide ? ' card--wide' : '';
     const badge = item.badge ? `<div class="card__badge">${item.badge}</div>` : '';
-    let media = '';
-    if (item.type === 'image') {
-      media = `<img src="${item.src}" alt="${item.title || ''}" loading="lazy" />`;
-    } else if (item.type === 'video') {
-      const poster = item.poster ? ` poster="${item.poster}"` : '';
-      media = `<video${poster} muted playsinline preload="metadata"><source src="${item.src}" /></video>`;
-    } else {
-      media = `<div class="card__placeholder">${item.title || 'PLACEHOLDER'}</div>`;
-    }
+    const thumb = thumbOf(item.src);
+    // В сетке всегда грузим лёгкое превью <img>; оригинал (фото или видео) откроется в лайтбоксе
+    const media = `<img src="${thumb}" alt="${item.title || ''}" loading="lazy" />`;
     return `
-      <div class="card" data-type="${item.type}" data-src="${item.src || ''}" data-title="${item.title || ''}">
+      <div class="card${wide}" data-type="${item.type}" data-src="${item.src || ''}" data-title="${item.title || ''}">
         ${badge}
         ${media}
       </div>`.trim();
