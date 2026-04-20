@@ -1,7 +1,4 @@
 // ---------- Данные галерей ----------
-// Пока используются плейсхолдеры. Заменить на реальные файлы:
-// { type: 'image', src: 'assets/studio-photo/1.jpg', title: 'Название' }
-// { type: 'video', src: 'assets/studio-video/1.mp4', poster: 'assets/studio-video/1.jpg' }
 const pad = (n) => String(n).padStart(2, '0');
 
 // ---------- Описания вкладок ----------
@@ -51,51 +48,76 @@ function renderPanelHeader(key) {
   panel.insertBefore(header, panel.firstChild);
 }
 
-const GALLERIES = {
-  // ← «имидж фото» (14 фото)
-  'creative-visuals': Array.from({ length: 14 }, (_, i) => ({
+const imgSeq = (folder, count, ext = 'jpg', label = '') =>
+  Array.from({ length: count }, (_, i) => ({
     type: 'image',
-    src: `assets/image-photo/${pad(i + 1)}.jpg`,
-    title: `Креативный визуал ${i + 1}`,
+    src: `assets/${folder}/${pad(i + 1)}.${ext}`,
+    title: label ? `${label} ${i + 1}` : '',
+    wide: i === 0,
+  }));
+
+const GALLERIES = {
+  // Креативные визуалы — 14 фото
+  'creative-visuals': imgSeq('creative-visuals', 14, 'jpg', 'Креативный визуал'),
+  // Видео-креативы — 7 роликов (4 mp4 + 3 mov)
+  'video-creatives': [
+    { type: 'video', src: 'assets/video-creatives/01.mp4', badge: 'VIDEO', title: 'Видео-креатив 1', wide: true },
+    { type: 'video', src: 'assets/video-creatives/02.mp4', badge: 'VIDEO', title: 'Видео-креатив 2' },
+    { type: 'video', src: 'assets/video-creatives/03.mp4', badge: 'VIDEO', title: 'Видео-креатив 3' },
+    { type: 'video', src: 'assets/video-creatives/04.mp4', badge: 'VIDEO', title: 'Видео-креатив 4' },
+    { type: 'video', src: 'assets/video-creatives/05.mov', badge: 'VIDEO', title: 'Видео-креатив 5' },
+    { type: 'video', src: 'assets/video-creatives/06.mov', badge: 'VIDEO', title: 'Видео-креатив 6' },
+    { type: 'video', src: 'assets/video-creatives/07.mov', badge: 'VIDEO', title: 'Видео-креатив 7' },
+  ],
+  // AI-аватары — 7 роликов
+  'ai-avatars': Array.from({ length: 7 }, (_, i) => ({
+    type: 'video',
+    src: `assets/ai-avatars/${pad(i + 1)}.mp4`,
+    badge: 'VIDEO',
+    title: `AI-аватар ${i + 1}`,
     wide: i === 0,
   })),
-  // ← «имидж видео» (6 видео)
-  'video-creatives': Array.from({ length: 6 }, (_, i) => ({
-    type: 'video',
-    src: `assets/image-video/${pad(i + 1)}.mp4`,
-    poster: `assets/image-video/${pad(i + 1)}.jpg`,
-    badge: 'VIDEO',
-    title: `Видео-креатив ${i + 1}`,
-  })),
-  // Пока пусто — ждём материалы
-  'ai-avatars': [],
-  // ← «Каталожка»: 21 фото + 2 видео
+  // Студийная съёмка — 2 видео + 29 фото (27 jpg + 2 png)
   'studio-shoot': [
-    ...Array.from({ length: 2 }, (_, i) => ({
-      type: 'video',
-      src: `assets/studio-video/${pad(i + 1)}.mp4`,
-      poster: `assets/studio-video/${pad(i + 1)}.jpg`,
-      badge: 'VIDEO',
-      title: `Студийное видео ${i + 1}`,
-      wide: i === 0,
-    })),
-    ...Array.from({ length: 21 }, (_, i) => ({
+    { type: 'video', src: 'assets/studio-shoot/video-01.mp4', badge: 'VIDEO', title: 'Студийное видео 1', wide: true },
+    { type: 'video', src: 'assets/studio-shoot/video-02.mp4', badge: 'VIDEO', title: 'Студийное видео 2' },
+    ...Array.from({ length: 27 }, (_, i) => ({
       type: 'image',
-      src: `assets/studio-photo/${pad(i + 5)}.jpg`,
+      src: `assets/studio-shoot/${pad(i + 1)}.jpg`,
       title: `Студийное фото ${i + 1}`,
     })),
+    { type: 'image', src: 'assets/studio-shoot/28.png', title: 'Студийное фото 28' },
+    { type: 'image', src: 'assets/studio-shoot/29.png', title: 'Студийное фото 29' },
   ],
-  // Пока пусто — ждём материалы
-  'image-shoot': [],
-  // ← «карточки товаров» (4 карточки)
-  'marketplace': Array.from({ length: 4 }, (_, i) => ({
-    type: 'image',
-    src: `assets/studio-photo/${pad(i + 1)}.jpg`,
-    title: `Карточка ${i + 1}`,
-    wide: i === 0,
-  })),
-  // Пока пусто — ждём материалы
-  'ad-creatives': [],
+  // Имиджевая съёмка — порядок: 5 ключевых кадров → мужские fashion → женские портреты → украшения/mood → мужские часы → прочее
+  'image-shoot': [
+    { type: 'image', src: 'assets/image-shoot/14.jpg', title: 'Имидж 1', wide: true },
+    { type: 'image', src: 'assets/image-shoot/13.jpg', title: 'Имидж 2' },
+    { type: 'image', src: 'assets/image-shoot/17.jpg', title: 'Имидж 3' },
+    { type: 'image', src: 'assets/image-shoot/15.jpg', title: 'Имидж 4' },
+    { type: 'image', src: 'assets/image-shoot/16.jpg', title: 'Имидж 5' },
+    { type: 'image', src: 'assets/image-shoot/18.jpeg', title: 'Имидж 6' },
+    { type: 'image', src: 'assets/image-shoot/20.jpeg', title: 'Имидж 7' },
+    { type: 'image', src: 'assets/image-shoot/21.jpeg', title: 'Имидж 8' },
+    { type: 'image', src: 'assets/image-shoot/19.jpeg', title: 'Имидж 9' },
+    { type: 'image', src: 'assets/image-shoot/03.jpg', title: 'Имидж 10' },
+    { type: 'image', src: 'assets/image-shoot/09.jpg', title: 'Имидж 11' },
+    { type: 'image', src: 'assets/image-shoot/11.jpg', title: 'Имидж 12' },
+    { type: 'image', src: 'assets/image-shoot/04.jpg', title: 'Имидж 13' },
+    { type: 'image', src: 'assets/image-shoot/10.jpg', title: 'Имидж 14' },
+    { type: 'image', src: 'assets/image-shoot/12.jpg', title: 'Имидж 15' },
+    { type: 'image', src: 'assets/image-shoot/02.jpg', title: 'Имидж 16' },
+    { type: 'image', src: 'assets/image-shoot/22.png', title: 'Имидж 17' },
+    { type: 'image', src: 'assets/image-shoot/07.jpg', title: 'Имидж 18' },
+    { type: 'image', src: 'assets/image-shoot/05.jpg', title: 'Имидж 19' },
+    { type: 'image', src: 'assets/image-shoot/08.jpg', title: 'Имидж 20' },
+    { type: 'image', src: 'assets/image-shoot/06.jpg', title: 'Имидж 21' },
+    { type: 'image', src: 'assets/image-shoot/01.jpg', title: 'Имидж 22' },
+  ],
+  // Карточки для маркетплейсов — 14 карточек
+  'marketplace': imgSeq('marketplace', 14, 'jpg', 'Карточка'),
+  // Рекламные креативы — 8 баннеров
+  'ad-creatives': imgSeq('ad-creatives', 8, 'jpg', 'Реклама'),
 };
 
 // ---------- Рендер карточек ----------
