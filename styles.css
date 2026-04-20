@@ -266,11 +266,10 @@ p  { margin: 0 0 1em; }
   background: var(--bg-elev);
 }
 .footer__inner {
-  display: flex; align-items: center; justify-content: space-between;
+  display: flex; align-items: center; justify-content: center;
   gap: 18px; flex-wrap: wrap;
+  text-align: center;
 }
-.footer__links { display: flex; gap: 18px; color: var(--text-dim); font-size: 14px; }
-.footer__links a:hover { color: var(--text); }
 
 /* ---------- Lightbox ---------- */
 .lightbox {
