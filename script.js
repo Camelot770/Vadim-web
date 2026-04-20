@@ -5,32 +5,50 @@
 const pad = (n) => String(n).padStart(2, '0');
 
 const GALLERIES = {
-  'studio-photo': Array.from({ length: 25 }, (_, i) => ({
+  // Пока пусто — ждём материалы
+  'creative-visuals': [],
+  // 6 имиджевых + 2 студийных = 8 видео
+  'video-creatives': [
+    ...Array.from({ length: 6 }, (_, i) => ({
+      type: 'video',
+      src: `assets/image-video/${pad(i + 1)}.mp4`,
+      poster: `assets/image-video/${pad(i + 1)}.jpg`,
+      badge: 'VIDEO',
+      title: `Видео ${i + 1}`,
+    })),
+    ...Array.from({ length: 2 }, (_, i) => ({
+      type: 'video',
+      src: `assets/studio-video/${pad(i + 1)}.mp4`,
+      poster: `assets/studio-video/${pad(i + 1)}.jpg`,
+      badge: 'VIDEO',
+      title: `Видео ${i + 7}`,
+    })),
+  ],
+  // Пока пусто — ждём материалы
+  'ai-avatars': [],
+  // studio-photo/05..25 — каталожные кадры моделей
+  'studio-shoot': Array.from({ length: 21 }, (_, i) => ({
     type: 'image',
-    src: `assets/studio-photo/${pad(i + 1)}.jpg`,
-    title: `Студийное фото ${i + 1}`,
+    src: `assets/studio-photo/${pad(i + 5)}.jpg`,
+    title: `Студийная съёмка ${i + 1}`,
     wide: i === 0,
   })),
-  'studio-video': Array.from({ length: 2 }, (_, i) => ({
-    type: 'video',
-    src: `assets/studio-video/${pad(i + 1)}.mp4`,
-    poster: `assets/studio-video/${pad(i + 1)}.jpg`,
-    badge: 'VIDEO',
-    title: `Студийное видео ${i + 1}`,
-  })),
-  'image-video': Array.from({ length: 6 }, (_, i) => ({
-    type: 'video',
-    src: `assets/image-video/${pad(i + 1)}.mp4`,
-    poster: `assets/image-video/${pad(i + 1)}.jpg`,
-    badge: 'VIDEO',
-    title: `Имидж видео ${i + 1}`,
-  })),
-  'image-photo': Array.from({ length: 14 }, (_, i) => ({
+  // все 14 из имидж фото
+  'image-shoot': Array.from({ length: 14 }, (_, i) => ({
     type: 'image',
     src: `assets/image-photo/${pad(i + 1)}.jpg`,
-    title: `Имидж фото ${i + 1}`,
+    title: `Имиджевая съёмка ${i + 1}`,
     wide: i === 0,
   })),
+  // studio-photo/01..04 — карточки товаров
+  'marketplace': Array.from({ length: 4 }, (_, i) => ({
+    type: 'image',
+    src: `assets/studio-photo/${pad(i + 1)}.jpg`,
+    title: `Карточка ${i + 1}`,
+    wide: i === 0,
+  })),
+  // Пока пусто — ждём материалы
+  'ad-creatives': [],
 };
 
 // ---------- Рендер карточек ----------
@@ -38,6 +56,18 @@ function renderGrid(key) {
   const grid = document.querySelector(`[data-grid="${key}"]`);
   if (!grid || grid.dataset.rendered === '1') return;
   const items = GALLERIES[key] || [];
+  if (items.length === 0) {
+    grid.classList.add('grid--empty');
+    grid.innerHTML = `
+      <div class="coming-soon">
+        <div class="coming-soon__icon">✨</div>
+        <h3>Контент готовится</h3>
+        <p>Скоро наполним этот раздел свежими работами</p>
+      </div>
+    `;
+    grid.dataset.rendered = '1';
+    return;
+  }
   grid.innerHTML = items.map((item) => {
     const wide = item.wide ? ' card--wide' : '';
     const badge = item.badge ? `<div class="card__badge">${item.badge}</div>` : '';
