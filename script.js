@@ -4,6 +4,53 @@
 // { type: 'video', src: 'assets/studio-video/1.mp4', poster: 'assets/studio-video/1.jpg' }
 const pad = (n) => String(n).padStart(2, '0');
 
+// ---------- Описания вкладок ----------
+const DESCRIPTIONS = {
+  'marketplace': {
+    title: 'Продающая инфографика для Wildberries и Ozon',
+    text: 'Создаём карточки, которые увеличивают CTR и конверсию в корзину. Работаем с любой категорией товаров — от косметики до электроники.',
+  },
+  'studio-shoot': {
+    title: 'Чистая студийная съёмка для каталогов и лукбуков',
+    text: 'Полный цикл студийного контента: модели на циклораме, ghost mannequin для одежды и предметная съёмка аксессуаров. Статика и видео-проходки — всё, что нужно для маркетплейсов, интернет-магазинов и каталогов бренда.',
+  },
+  'image-shoot': {
+    title: 'Модели, украшения и атмосфера уровня глянца',
+    text: 'Fashion-контент для соцсетей, сайта и рекламных кампаний. Реальные локации, кинематографичный свет, редакторская подача — без затрат на студию, моделей и продакшен.',
+  },
+  'ad-creatives': {
+    title: 'Performance-статика, которая приносит заявки',
+    text: 'Баннеры и креативы для таргета в Meta, VK, Яндекс.Директ. Оффер, CTA и визуал в одном кадре — готово к запуску в рекламный кабинет.',
+  },
+  'video-creatives': {
+    title: 'Ролики, которые останавливают скролл',
+    text: 'Короткие видео для соцсетей, сайта и рекламы. От динамичных продуктовых тизеров до кинематографичных имиджевых роликов — любой формат под задачу бренда.',
+  },
+  'ai-avatars': {
+    title: 'Цифровые герои, которые работают на ваш бренд 24/7',
+    text: 'Создаём AI-креаторов для соцсетей и полноценных амбассадоров бренда под ключ — с внешностью, голосом, характером и ИИ-агентом, который пишет сценарии. Замена инфлюенсерам без ограничений по времени и бюджету.',
+  },
+  'creative-visuals': {
+    title: 'Арт-направление и концептуальные генерации',
+    text: 'Нестандартные визуалы для имиджевых задач: коллаборации, кампании, спецпроекты, контент для соцсетей. Там, где нужна смелая идея и визуальный характер.',
+  },
+};
+
+function renderPanelHeader(key) {
+  const panel = document.getElementById(key);
+  if (!panel) return;
+  if (panel.querySelector('.panel__header')) return;
+  const d = DESCRIPTIONS[key];
+  if (!d) return;
+  const header = document.createElement('div');
+  header.className = 'panel__header';
+  header.innerHTML = `
+    <h3 class="panel__title">${d.title}</h3>
+    <p class="panel__desc">${d.text}</p>
+  `;
+  panel.insertBefore(header, panel.firstChild);
+}
+
 const GALLERIES = {
   // Пока пусто — ждём материалы
   'creative-visuals': [],
@@ -105,6 +152,7 @@ tabs.forEach((tab) => {
     });
     panels.forEach((p) => p.classList.toggle('is-active', p.id === key));
     if (emptyState) emptyState.style.display = 'none';
+    renderPanelHeader(key);
     renderGrid(key);
   });
 });
