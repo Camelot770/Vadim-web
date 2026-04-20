@@ -52,42 +52,42 @@ function renderPanelHeader(key) {
 }
 
 const GALLERIES = {
+  // ← «имидж фото» (14 фото)
+  'creative-visuals': Array.from({ length: 14 }, (_, i) => ({
+    type: 'image',
+    src: `assets/image-photo/${pad(i + 1)}.jpg`,
+    title: `Креативный визуал ${i + 1}`,
+    wide: i === 0,
+  })),
+  // ← «имидж видео» (6 видео)
+  'video-creatives': Array.from({ length: 6 }, (_, i) => ({
+    type: 'video',
+    src: `assets/image-video/${pad(i + 1)}.mp4`,
+    poster: `assets/image-video/${pad(i + 1)}.jpg`,
+    badge: 'VIDEO',
+    title: `Видео-креатив ${i + 1}`,
+  })),
   // Пока пусто — ждём материалы
-  'creative-visuals': [],
-  // 6 имиджевых + 2 студийных = 8 видео
-  'video-creatives': [
-    ...Array.from({ length: 6 }, (_, i) => ({
-      type: 'video',
-      src: `assets/image-video/${pad(i + 1)}.mp4`,
-      poster: `assets/image-video/${pad(i + 1)}.jpg`,
-      badge: 'VIDEO',
-      title: `Видео ${i + 1}`,
-    })),
+  'ai-avatars': [],
+  // ← «Каталожка»: 21 фото + 2 видео
+  'studio-shoot': [
     ...Array.from({ length: 2 }, (_, i) => ({
       type: 'video',
       src: `assets/studio-video/${pad(i + 1)}.mp4`,
       poster: `assets/studio-video/${pad(i + 1)}.jpg`,
       badge: 'VIDEO',
-      title: `Видео ${i + 7}`,
+      title: `Студийное видео ${i + 1}`,
+      wide: i === 0,
+    })),
+    ...Array.from({ length: 21 }, (_, i) => ({
+      type: 'image',
+      src: `assets/studio-photo/${pad(i + 5)}.jpg`,
+      title: `Студийное фото ${i + 1}`,
     })),
   ],
   // Пока пусто — ждём материалы
-  'ai-avatars': [],
-  // studio-photo/05..25 — каталожные кадры моделей
-  'studio-shoot': Array.from({ length: 21 }, (_, i) => ({
-    type: 'image',
-    src: `assets/studio-photo/${pad(i + 5)}.jpg`,
-    title: `Студийная съёмка ${i + 1}`,
-    wide: i === 0,
-  })),
-  // все 14 из имидж фото
-  'image-shoot': Array.from({ length: 14 }, (_, i) => ({
-    type: 'image',
-    src: `assets/image-photo/${pad(i + 1)}.jpg`,
-    title: `Имиджевая съёмка ${i + 1}`,
-    wide: i === 0,
-  })),
-  // studio-photo/01..04 — карточки товаров
+  'image-shoot': [],
+  // ← «карточки товаров» (4 карточки)
   'marketplace': Array.from({ length: 4 }, (_, i) => ({
     type: 'image',
     src: `assets/studio-photo/${pad(i + 1)}.jpg`,
