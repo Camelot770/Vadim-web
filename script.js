@@ -63,6 +63,8 @@ function renderGrid(key) {
 const tabs = document.querySelectorAll('.tab');
 const panels = document.querySelectorAll('.panel');
 
+const emptyState = document.getElementById('empty-state');
+
 tabs.forEach((tab) => {
   tab.addEventListener('click', () => {
     const key = tab.dataset.tab;
@@ -72,13 +74,10 @@ tabs.forEach((tab) => {
       t.setAttribute('aria-selected', active ? 'true' : 'false');
     });
     panels.forEach((p) => p.classList.toggle('is-active', p.id === key));
+    if (emptyState) emptyState.style.display = 'none';
     renderGrid(key);
   });
 });
-
-// Первичная отрисовка активной вкладки
-const initialTab = document.querySelector('.tab.is-active')?.dataset.tab;
-if (initialTab) renderGrid(initialTab);
 
 // ---------- Лайтбокс ----------
 const lightbox = document.getElementById('lightbox');

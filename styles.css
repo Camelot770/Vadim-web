@@ -200,6 +200,16 @@ p  { margin: 0 0 1em; }
 .panels { position: relative; }
 .panel { display: none; animation: fade .3s var(--t) both; }
 .panel.is-active { display: block; }
+
+.empty-state {
+  padding: 60px 24px;
+  text-align: center;
+  color: var(--text-mute);
+  font-size: 15px;
+  border: 1px dashed rgba(255,255,255,.08);
+  border-radius: var(--radius);
+  background: rgba(255,255,255,.01);
+}
 @keyframes fade {
   from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0); }

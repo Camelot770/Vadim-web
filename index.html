@@ -48,7 +48,7 @@
       </div>
 
       <div class="tabs" role="tablist" aria-label="Категории работ">
-        <button class="tab is-active" role="tab" aria-selected="true" data-tab="studio-photo">
+        <button class="tab" role="tab" aria-selected="false" data-tab="studio-photo">
           <span class="tab__icon">📷</span>
           <span class="tab__label">Фото студийные</span>
         </button>
@@ -67,7 +67,10 @@
       </div>
 
       <div class="panels">
-        <div class="panel is-active" id="studio-photo" role="tabpanel">
+        <div class="empty-state" id="empty-state">
+          <p>Выберите направление выше, чтобы посмотреть работы</p>
+        </div>
+        <div class="panel" id="studio-photo" role="tabpanel">
           <div class="grid" data-grid="studio-photo"></div>
         </div>
         <div class="panel" id="studio-video" role="tabpanel">
