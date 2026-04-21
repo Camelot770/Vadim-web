@@ -69,8 +69,8 @@ const GALLERIES = {
     { type: 'video', src: 'assets/video-creatives/06.mov', badge: 'VIDEO', title: 'Видео-креатив 6' },
     { type: 'video', src: 'assets/video-creatives/07.mov', badge: 'VIDEO', title: 'Видео-креатив 7' },
   ],
-  // AI-аватары — 7 роликов
-  'ai-avatars': Array.from({ length: 7 }, (_, i) => ({
+  // AI-аватары — 8 роликов
+  'ai-avatars': Array.from({ length: 8 }, (_, i) => ({
     type: 'video',
     src: `assets/ai-avatars/${pad(i + 1)}.mp4`,
     badge: 'VIDEO',
